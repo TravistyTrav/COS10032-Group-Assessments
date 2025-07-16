@@ -98,18 +98,6 @@ input {
 
 /* enhancements.html styles */
 
-.text-left {
-    text-align: left;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
-
 header {
     min-height: 40vh;
     background-image: url("./images/office-building.jpg");
@@ -126,7 +114,36 @@ hr {
 }
 
 code {
-    background-color: #333;
+    background-color: #2e2a2a;
     color: white;
     padding: 10px;
+
+    border-radius: 5px;
+}
+
+/* Utility Classes */
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Jobs.html page specific css here */
+aside {
+    width: 30%;
+    float: right;
+    border-color: #004080;
+}
+
+h3 {
+    font-size: 28px;
+    color: #004080;
+    margin-bottom: 20px;
 }
