@@ -15,6 +15,9 @@ nav {
     justify-content: center;
     gap: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    position: fixed;
+    width: 100%;
 }
 nav a {
     text-decoration: none;
@@ -126,4 +129,10 @@ header {
 
 hr {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+code {
+    background-color: #333;
+    color: white;
+    padding: 10px;
 }
