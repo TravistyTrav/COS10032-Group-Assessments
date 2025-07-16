@@ -68,10 +68,6 @@ footer {
 
 /* Apply.html styles */
 
-.apply {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-}
-
 #application .email {
     text-align: center;
     margin: 1%;
@@ -80,8 +76,8 @@ footer {
 
 fieldset {
     background-color: #ffffff;
-    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.08);
-    border-color: hsla(238, 20%, 32%, 0.025);
+    box-shadow: 5px 5px 15px hsla(0, 0%, 0%, 0.111);
+    border-color: hsla(238, 20%, 32%, 0.015);
 }
 
 legend {
@@ -91,7 +87,7 @@ legend {
 
 input {
     margin-left: 5%;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 1px solid hsla(238, 20%, 32%, 0.122);
 }
 
