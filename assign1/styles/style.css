@@ -144,9 +144,8 @@ aside {
     border-color: #004080;
 }
 
-#jobsh1 {
-    font-size: 17px;
-    line-height: 1.7;
-    color: #444;
-    float: left;
+h3 {
+    font-size: 28px;
+    color: #004080;
+    margin-bottom: 20px;
 }
