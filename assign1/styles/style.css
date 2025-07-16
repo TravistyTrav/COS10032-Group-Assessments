@@ -72,23 +72,21 @@ footer {
 
 #application .email {
     text-align: center;
-    margin: 1%;
-
+    margin: 1em;
 }
 
 fieldset {
     background-color: #ffffff;
-    box-shadow: 5px 5px 15px hsla(0, 0%, 0%, 0.111);
-    border-color: hsla(238, 20%, 32%, 0.015);
+    border-color: hsla(238, 20%, 32%, 0.029);
 }
 
 legend {
-    margin-left: 5%;
+    margin-left: 1em;
     text-align: left;
 }
 
 input {
-    margin-left: 5%;
+    margin-left: 1em;
     border-radius: 5px;
     border: 1px solid hsla(238, 20%, 32%, 0.122);
 }
