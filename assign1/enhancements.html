@@ -11,22 +11,35 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <nav>
-    <a href="about.html">About</a>
-    <a href="apply.html">Apply</a>
-    <a href="enhancements.html">Enhancements</a>
-    <a href="jobs.html">Jobs</a>
-  </nav>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="apply.html">Apply</a>
+        <a href="enhancements.html">Enhancements</a>
+        <a href="jobs.html">Jobs</a>
+    </nav>
   <header>
-    <img src="images/dunder-mifflin-it-company.png" alt="Dunder Mifflin I.T. Company Logo">
+    <a href="index.html"><img src="images/dunder-mifflin-it-company.png" alt="Dunder Mifflin I.T. Company Logo"></a>
   </header>
   <main>
-    <h2>Welcome to Dunder Mifflin I.T.</h2>
-    <p>
-      Dunder Mifflin I.T. is a cutting-edge provider of technology solutions committed to offering 
-      creative IT support and services. We assist companies in running more efficiently, securely, 
-      and intelligently through everything from network administration to software development.
-    </p>
+    <h1 class="text-center">Enhancements</h1>
+    <p class="text-center">Here we will go over additional css implementations we have used to enhance the experience on this website further than the basic requirements of this project.</p>
+    <br><hr><br>
+    <h2>Media Queries</h2>
+    <p>We have used media queries to adjust our website's appearance on smaller device screen widths, to make the website more readable.</p>
+    <br>
+    <code>
+      @media screen and (min-width: 760px) and (max-width:1280px) {
+        .nav {
+          flex-direction: column; 
+        }
+      }
+    </code>
+    <br>
+    <br>
+    <h2>Flexbox</h2>
+    <p>We have used flexbox to position elements on out website.</p>
+
   </main>
   <footer>
     &copy; 2025 Dunder Mifflin I.T. | All rights reserved
