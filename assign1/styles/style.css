@@ -98,3 +98,17 @@ input {
 .email {
     float: left;
 }
+
+/* Jobs.html page specific css here */
+aside {
+    width: 30%;
+    float: right;
+    border-color: #004080;
+}
+
+#jobsh1 {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #444;
+    float: left;
+}
