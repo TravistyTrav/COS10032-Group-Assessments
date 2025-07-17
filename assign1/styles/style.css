@@ -70,6 +70,10 @@ footer {
 
 /* Apply.html styles */
 
+.apply p{
+    padding: 1em;
+}
+
 #application .email {
     text-align: center;
     margin: 1em;
@@ -93,6 +97,10 @@ input {
 
 .email {
     float: left;
+}
+
+#application {
+    padding: 1em;
 }
 
 
