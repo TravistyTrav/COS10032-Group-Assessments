@@ -155,3 +155,12 @@ h3 {
     color: #004080;
     margin-bottom: 20px;
 }
+
+
+/* Mobile Responsiveness */
+
+@media screen and (max-wdith: 760px) {
+    header {
+        min-height: 200px;
+    }
+}
