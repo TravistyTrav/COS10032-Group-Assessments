@@ -68,7 +68,7 @@ footer {
     color: #999;
 }
 
-/* Apply.html styles */
+/* apply.html styles */
 
 .apply p{
     padding: 1em;
@@ -84,6 +84,29 @@ fieldset {
     border-color: hsla(238, 20%, 32%, 0.029);
 }
 
+/*Outline box model*/
+.entry, .entry p {
+    border: 1px solid red;
+    display: block;
+}
+
+.entry {
+    padding: 1em;
+}
+
+.entry p {
+    display: inline-block;
+}
+
+input {
+    margin-left: 15%;
+}
+
+fieldset .right {
+    display: inline-block;
+    float: right;
+}
+
 legend {
     margin-left: 1em;
     text-align: left;
@@ -93,10 +116,6 @@ input {
     margin-left: 1em;
     border-radius: 5px;
     border: 1px solid hsla(238, 20%, 32%, 0.122);
-}
-
-.email {
-    float: left;
 }
 
 #application {
