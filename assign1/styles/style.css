@@ -217,6 +217,7 @@ aside {
     width: 30%;
     float: right;
     border-color: #004080;
+    font-size: 14px;
 }
 
 h3 {
@@ -228,6 +229,10 @@ h3 {
 ul{
         list-style-type: none;
         margin: 0;
+}
+
+#jobdesc{
+    font-size: 14px;
 }
 
 /* About.html page specifis css here */
