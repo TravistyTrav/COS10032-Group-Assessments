@@ -77,13 +77,17 @@ footer {
 }
 
 fieldset {
+    min-width: 1em;
+    padding: 2rem;
     background-color: #FDFDFD;
     border-color: hsla(238, 20%, 32%, 0.029);
 }
 
-.grid-form{
+.grid-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
+
 }
 
 .grid-form-skills {
@@ -295,8 +299,12 @@ ul{
 
 /* Mobile Responsiveness */
 
-@media screen and (max-wdith: 760px) {
+@media screen and (max-width: 760px) {
     header {
         min-height: 200px;
     }
-}
+    
+    .grid-form, .grid-form-skills {
+    grid-template-columns: 1fr;
+    }
+}   
