@@ -70,19 +70,34 @@ footer {
 
 /* apply.html styles */
 
-.apply p{
-    padding: 1em;
-}
-
-#application .email {
+#application input{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     text-align: center;
-    margin: 1em;
 }
 
 fieldset {
-    background-color: #ffffff;
+    background-color: #FDFDFD;
     border-color: hsla(238, 20%, 32%, 0.029);
 }
+
+.grid-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+input, select {
+    border-radius: 5px;
+    border: 1px solid hsla(238, 20%, 32%, 0.122);
+}
+
+select {
+    width: 12em;
+    height: 2.5em;
+    text-align: center;
+}
+
 
 /*Outline box model*/
 .entry, .entry p {
@@ -149,6 +164,11 @@ code {
 }
 
 /* Utility Classes */
+
+.float-right
+{
+    float: right;
+}
 
 .text-left {
     text-align: left;
