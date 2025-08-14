@@ -53,7 +53,7 @@ main {
 main h2 {
     font-size: 28px;
     color: #004080;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 main p {
     font-size: 17px;
@@ -249,14 +249,15 @@ aside {
 }
 
 h3 {
-    font-size: 28px;
+    font-size: 20px;
     color: #004080;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 ul{
         list-style-type: none;
         margin: 0;
+        font-size: 14px;
 }
 
 #jobdesc{
