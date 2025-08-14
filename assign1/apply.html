@@ -11,31 +11,21 @@
     <link rel="stylesheet"       href="styles/style.css">
 </head>
 <body>
-<nav>
+  <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="apply.html">Apply</a>
     <a href="enhancements.html">Enhancements</a>
     <a href="jobs.html">Jobs</a>
-</nav>
+  </nav>
   <header>
     <a href="index.html"><img src="images/dunder-mifflin-it-company.png" alt="Dunder Mifflin I.T. Company Logo"></a>
   </header>
+
 <main class="apply">
-  <!-- Use margin on paragraph tags to space instead of using <br> 
-   
-  mt-1 margin top
-  
-  margin top 2rem
-  
-  margin-top 1rem
-  
-  ^^^
-  Just has to be sorted out in one spot, and applied to other spots
-  -->
   <div>
     <p class="text-left">
-        Show your interest in Dunder Mifflin by providing your details below
+    Show your interest in Dunder Mifflin by providing your details below
     </p>
 
     <p class="text-left">
@@ -56,10 +46,10 @@
     dapibus et. Mauris efficitur accumsan leo, in volutpat elit finibus eget.
     </p>
 
-    <hr>
+    <hr class="mb-2 mt-2">
 
     <p class="text-left">
-      More text talking about qualifications
+    More text talking about qualifications
     </p>
 
 
@@ -88,36 +78,128 @@
     
     </p>
   </div>
-    
-  <form id="application" method="post" action="http://mercury.swin.edu.au/it000000/formtest.php">
-    <p>Contact Details</p>
-    <fieldset>
-      <!-- Email Section -->
-      <div class="entry">
-      <p>
-          <label for="firstname">First Name</label>
-          <input type="text" name="firstname" id="firstname" placeholder="John" pattern="[A-Za-z ]{1,16}" required="required">
-      </p>
-      <p class="right">
-          <label for="lastname">Family Name</label>
-          <input type="text" name="lastname" id="lastname" placeholder="Smith" pattern="[A-Za-z ]{1,16}" required="required">
-      </p>
-      <p>
-      <label for="email">Email</label> 
-			<input type="text" name="email" id="email" placeholder="name@domain.com" maxlength="10" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-		  </p>
-      <p class="right">
-      <label for="phone">Phone</label> 
-			<input type="tel" name="phone" id="phone" placeholder="(61+) ### ### ###" required="required" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
-		  </p>
-      </div>
-      <p>Address</p>
-    </fieldset>
-    
-    <fieldset>
 
+  <form id="application" method="post" action="http://mercury.swin.edu.au/it000000/formtest.php">
+    <!-- Reference number -->
+    <fieldset class="mt-1 pb-4">
+      <p class="mt-1 mb-1 text-center">
+      Please provide the reference number for the job listing you are referencing
+      </p>
+      <div class="grid-form">
+        <div class="mb-1 mt-2">
+          <label class="ml-2" for="reference">Job Ref No.</label>
+          <input class="ml-2 mt-2" type="text" name="refno" id="refno" placeholder="0000" maxlength="4" required="required" pattern="[0-9]{4}" required="required">
+        </div>
+      </div>
+    </fieldset>     
+
+
+    <!-- About You -->
+    <fieldset class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center">About You</p>
+      <div class="grid-form">
+        <div class="mb-1 mt-2">
+            <label class="ml-2" for="firstname">First Name</label>
+            <input class="float-right mr-2"  type="text" name="firstname" id="firstname" placeholder="John" pattern="[A-Za-z ]{1,16}" required="required">
+        </div>
+
+        <div class="mb-1 mt-2">
+            <label class="ml-2" for="lastname">Last Name</label>
+            <input class="float-right mr-2"  type="text" name="lastname" id="lastname" placeholder="Smith" pattern="[A-Za-z ]{1,16}" required="required">
+        </div>
+
+        <div class="mt-2">
+        <label class="ml-2" for="email">Date of Birth</label> 
+        <input class="float-right mr-2"  type="text" name="email" id="email" placeholder="name@domain.com" maxlength="10" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        </div>
+      </div>
     </fieldset>
+    
+    <!-- Gender Details -->
+    <fieldset class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center">What best describes you?</p>
+      <div class="grid-form mt-2">
+        <div>
+          <label class="ml-2" for="gender">Male</label> 
+          <input class="ml-2" type="radio" id="male" name="gender" value="gender1" required>
+        </div>
+        <div>
+          <label class="ml-2" for="gender">Female</label> 
+          <input class="ml-2" type="radio" id="female" name="gender" value="gender2" required>
+        </div>
+      </div> 
+    </fieldset>
+
+    <!-- Address Section-->
+    <fieldset class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center">Address</p>
+      <div class="grid-form">
+        <div class="mb-1 mt-2">
+          <label class="ml-2" for="street">Street</label>
+          <input class="float-right mr-2"  type="text" name="street" id="street" placeholder="100 Elizabeth Street" pattern="[A-Za-z ]{1,16}" required="required">
+        </div>
+
+        <div class="mb-1 mt-2">
+          <label class="ml-2" for="street">City</label>
+          <input class="float-right mr-2"  type="text" name="city" id="city" placeholder="Melbourne" pattern="[A-Za-z ]{1,16}" required="required">
+        </div>
+        <div class="mt-2">
+          <label class="ml-2" for="city">State</label>
+          <select class="float-right mr-2" name="state" id="state" required="required">
+          <option value="">Please Select</option>
+          <option value="vic">VIC</option>
+          <option value="nsw">NSW</option>
+          <option value="qld">QLD</option>
+          <option value="nt">NT</option>
+          <option value="wa">WA</option>
+          <option value="sa">SA</option>
+          <option value="tas">TAS</option>
+          <option value="act">ACT</option>
+          </select>
+        </div>
+        <div class="mt-2">
+          <label class="ml-2" for="postcode">Post Code</label>
+          <input class="float-right mr-2"  type="text" name="postcode" id="postcode" placeholder="3000" pattern="[A-Za-z ]{1,16}" required="required">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Contact Details -->
+    <fieldset class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center">
+        Provide your contact details
+      </p>
+      <div class="grid-form">
+        <div class="mb-1 mt-2">
+          <label class="ml-2" for="email">Email</label>
+          <input class="float-right mr-2" type="text" name="email" id="email" placeholder="example@domain.com" pattern="" required="required">
+        </div>
+        <div class="mt-2">
+          <label class="ml-2" for="phone">Phone</label> 
+          <input class="float-right mr-2" type="text" name="phone" id="phone" placeholder="(+61) XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"  required="required">
+        </div> 
+      </div>
+    </fieldset>
+
+    <!-- Skills Section -->
+    <fieldset class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center">
+        What skills make you stand out?
+      </p>
+      <div class="grid-form">
+        <div class="mb-1 mt-2">
+          <label class="ml-2" for="email">Email</label>
+          <input class="float-right mr-2" type="text" name="email" id="email" placeholder="example@domain.com" pattern="" required="required">
+        </div>
+        <div class="mt-2">
+          <label class="ml-2" for="phone">Phone</label> 
+          <input class="float-right mr-2" type="text" name="phone" id="phone" placeholder="(+61) XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"  required="required">
+        </div> 
+      </div>
+    </fieldset>
+
   </form>  
+
 </main>
   <footer>
     &copy; 2025 Dunder Mifflin I.T. | All rights reserved
