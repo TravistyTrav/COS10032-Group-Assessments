@@ -70,7 +70,7 @@ footer {
 
 /* apply.html styles */
 
-#application input{
+#application input {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     text-align: center;
@@ -86,8 +86,13 @@ fieldset {
     grid-template-columns: 1fr 1fr;
 }
 
+.grid-form-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1em;
+}
 
-input, select {
+input, select, textarea {
     border-radius: 5px;
     border: 1px solid hsla(238, 20%, 32%, 0.122);
 }
