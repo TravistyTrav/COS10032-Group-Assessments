@@ -9,6 +9,10 @@ body {
     color: #333;
 }
 
+.image {
+    width: 100%;
+}
+
 nav {
     background-color: #004080;
     padding: 30px 20px;
@@ -294,8 +298,27 @@ ul{
     border-radius: 3px;
 }
 
-#about table p {
+#schedule-table {
+    width: 100%;
+}
+
+#schedule-table p {
     color: white;
+}
+
+#mobile-schedule-table {
+    width: 100%;
+    display: none;
+}
+
+.what-we-do {
+    display: grid; 
+    grid-template-columns: auto auto; 
+    gap: 50px;
+}
+
+code {
+    line-height: 2rem;
 }
 
 /* Mobile Responsiveness */
@@ -309,3 +332,34 @@ ul{
     grid-template-columns: 1fr;
     }
 }   
+
+@media screen and (max-width: 660px){
+    .what-we-do {
+        grid-template-columns: auto;
+    }
+    
+    .job-benifits-aside {
+        float: none;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px)
+{
+    nav {
+        padding: 10px;
+        position: relative;
+    }
+    nav a {
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    #mobile-schedule-table {
+        display: table;
+    }
+
+    #schedule-table {
+        display: none;
+    }
+}
