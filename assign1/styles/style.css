@@ -303,9 +303,7 @@ h4 {
 }
 
 .job-benefits-row { /* top-align both columns now the benefits lists both aside and non-aside elements are in line*/
-    display: flex;
     justify-content: space-between;
-    align-items: flex-start; 
     gap: 2rem;
 }
 
