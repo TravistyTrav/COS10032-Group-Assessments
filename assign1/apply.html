@@ -47,7 +47,7 @@
       <div class="grid-form">
         <div class="mb-1 mt-2">
           <label class="ml-2" for="reference">Job Ref No.</label>
-          <input class="ml-2 mt-2" type="text" name="refno" id="refno" placeholder="0000" maxlength="4" required="required" pattern="[a-zA-Z0-9]{5}" required="required">
+          <input class="ml-2 mt-2" type="text" name="refno" id="refno" placeholder="ABC12" maxlength="5" required="required" pattern="[a-zA-Z0-9]{5}" required="required">
         </div>
       </div>
     </fieldset>     
@@ -55,20 +55,20 @@
 
     <!-- About You -->
     <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center">About You</p>
+      <p class="mt-1 mb-1 text-center ul">About You</p>
       <div class="grid-form">
         <div class="mb-1 mt-2">
-            <label class="ml-2" for="firstname">First Name</label>
+            <label for="firstname">First Name</label>
             <input class="float-right mr-2"  type="text" name="firstname" id="firstname" placeholder="John" maxlength="20" pattern="[A-Za-z ]{1,20}" required="required">
         </div>
 
         <div class="mb-1 mt-2">
-            <label class="ml-2" for="lastname">Last Name</label>
+            <label for="lastname">Last Name</label>
             <input class="float-right mr-2"  type="text" name="lastname" id="lastname" placeholder="Smith" maxlength="20" pattern="[A-Za-z ]{1,20}" required="required">
         </div>
 
         <div class="mt-2">
-        <label class="ml-2" for="dob">Date of Birth</label> 
+        <label for="dob">Date of Birth</label> 
         <input class="float-right mr-2"  type="text" name="dob" id="dob" placeholder="dd/mm/yyyy" maxlength="10" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}" required="required">
         </div>
       </div>
@@ -76,35 +76,35 @@
     
     <!-- Gender Details -->
     <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center">What best describes you?</p>
+      <p class="mt-1 mb-1 text-center ul">What best describes you?</p>
       <div class="grid-form mt-2">
         <div>
-          <label class="ml-2" for="gender">Male</label> 
+          <label for="gender">Male</label> 
           <input class="ml-2" type="radio" id="male" name="gender" value="gender1" required>
         </div>
         <div>
-          <label class="ml-2" for="gender">Female</label> 
+          <label for="gender">Female</label> 
           <input class="ml-2" type="radio" id="female" name="gender" value="gender2" required>
         </div>
       </div> 
     </fieldset>
 
     <!-- Address Section-->
-    <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center">Address</p>
+    <fieldset id="address" class="mt-2 pb-4">
+      <p class="mt-1 mb-1 text-center ul">Address</p>
       <div class="grid-form">
         <div class="mb-1 mt-2">
-          <label class="ml-2" for="street">Street</label>
-          <input class="float-right mr-2"  type="text" name="street" id="street" placeholder="100 Elizabeth Street" minlength="8" maxlength="40" required="required">
+          <label class="sm-w-200px" for="street">Street</label>
+          <input class="float-right sm-float-none"  type="text" name="street" id="street" placeholder="100 Elizabeth Street" minlength="8" maxlength="40" required="required">
         </div>
 
         <div class="mb-1 mt-2">
-          <label class="ml-2" for="street">City</label>
-          <input class="float-right mr-2"  type="text" name="city" id="city" placeholder="Melbourne" minlength="8" maxlength="40" required="required">
+          <label class="sm-w-200px" for="street">City</label>
+          <input class="float-right sm-float-none"  type="text" name="city" id="city" placeholder="Melbourne" minlength="8" maxlength="40" required="required">
         </div>
         <div class="mt-2">
-          <label class="ml-2" for="city">State</label>
-          <select class="float-right mr-2" name="state" id="state" required="required">
+          <label class="sm-w-200px" for="city">State</label>
+          <select class="float-right sm-float-none" name="state" id="state" required="required">
           <option value="">Please Select</option>
           <option value="vic">VIC</option>
           <option value="nsw">NSW</option>
@@ -117,38 +117,38 @@
           </select>
         </div>
         <div class="mt-2">
-          <label class="ml-2" for="postcode">Post Code</label>
-          <input class="float-right mr-2"  type="text" name="postcode" id="postcode" placeholder="3000" pattern="[0-9]{4}" required="required">
+          <label class="sm-w-200px" for="postcode">Post Code</label>
+          <input class="float-right sm-float-none"  type="text" name="postcode" id="postcode" placeholder="3000" pattern="[0-9]{4}" required="required">
         </div>
       </div>
     </fieldset>
 
     <!-- Contact Details -->
     <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center">
+      <p class="mt-1 mb-1 text-center ul">
         Provide your contact details
       </p>
       <div class="grid-form">
         <div class="mb-1 mt-2">
-          <label class="ml-2" for="email">Email</label>
-          <input class="float-right mr-2" type="text" name="email" id="email" placeholder="example@domain.com" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required="required">
+          <label for="email">Email</label>
+          <input class="mr-2" type="text" name="email" id="email" placeholder="example@domain.com" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required="required">
         </div>
         <div class="mt-2">
-          <label class="ml-2" for="phone">Phone</label> 
-          <input class="float-right mr-2" type="text" name="phone" id="phone" placeholder="(+61) XXX-XXX-XXX" pattern="/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/"  required="required">
+          <label for="phone">Phone</label> 
+          <input class="mr-2" type="text" name="phone" id="phone" placeholder="(+61) XXX-XXX-XXX" pattern="/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/"  required="required">
         </div> 
       </div>
     </fieldset>
 
     <!-- Skills Section -->
     <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center">
+      <p class="mt-1 mb-1 text-center ul">
         What skills make you stand out?
       </p>
       <div>
-        <div class="mb-1 mt-2 ml-2">
-          <legend for="skills">Skills</legend>
-          <div class="grid-form-skills ml-2 mt-2">
+        <div class="mb-1 mt-2">
+          <p>Skills:</p>
+          <div class="grid-form-skills mt-2">
             <label for="html">HTML</label> 
 			      <input type="checkbox" id="html" name="skills" value="html" checked="checked">
             <label for="css">CSS</label> 
@@ -164,9 +164,9 @@
           </div>
       </div>
 
-      <div class="mb-1 mt-4 ml-2">
+      <div class="mb-1 mt-4">
         <p class="mb-1">Other: Please describe</p>
-        <textarea name="other" id="other"></textarea>
+        <textarea name="other" class="other-description" rows="10"></textarea>
       </div>
     </fieldset>
     <div class="mt-2 submission">

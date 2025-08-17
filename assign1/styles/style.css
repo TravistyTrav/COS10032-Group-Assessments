@@ -111,6 +111,10 @@ select {
     text-align: center;
 }
 
+.other-description {
+    width: 100%;
+}
+
 
 /*Outline box model*/
 .entry, .entry p {
@@ -192,6 +196,14 @@ code {
 
 .text-right {
     text-align: right;
+}
+
+.ul {
+    text-decoration: underline;
+}
+
+.w-100 {
+    width: 100%;
 }
 
 .mt-1 { margin-top: 1rem; }
@@ -321,6 +333,10 @@ code {
     line-height: 2rem;
 }
 
+#address input, #address select {
+    margin-right: 1rem;
+}
+
 /* Mobile Responsiveness */
 
 @media screen and (max-width: 760px) {
@@ -328,8 +344,26 @@ code {
         min-height: 200px;
     }
     
-    .grid-form, .grid-form-skills {
-    grid-template-columns: 1fr;
+    .grid-form-skills {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-form {
+        grid-template-columns: 1fr;
+    }
+
+    .sm-float-none {
+        float: none!important;
+    }
+
+    .sm-w-200px {
+        display: inline-block;
+        width: 200px;
+    }
+
+    #address input, #address select {
+        margin-left: 0;
+        margin-right: 0;
     }
 }   
 
