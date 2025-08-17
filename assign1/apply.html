@@ -37,7 +37,6 @@
     </p>
   </div>
 
-  <div>
   <form id="application" method="post" action="http://mercury.swin.edu.au/it000000/formtest.php">
     <!-- Reference number -->
     <fieldset class="mt-1 pb-4">
@@ -47,7 +46,7 @@
       <div class="grid-form">
         <div class="mb-1 mt-2">
           <label class="ml-2" for="reference">Job Ref No.</label>
-          <input class="ml-2 mt-2" type="text" name="refno" id="refno" placeholder="ABC12" maxlength="5" required="required" pattern="[a-zA-Z0-9]{5}" required="required">
+          <input class="ml-2 mt-2" type="text" name="reference" id="reference" placeholder="ABC12" maxlength="5" pattern="[a-zA-Z0-9]{5}" required="required">
         </div>
       </div>
     </fieldset>     
@@ -79,12 +78,12 @@
       <p class="mt-1 mb-1 text-center ul">What best describes you?</p>
       <div class="grid-form mt-2">
         <div>
-          <label for="gender">Male</label> 
-          <input class="ml-2" type="radio" id="male" name="gender" value="gender1" required>
+          <label for="gender-male">Male</label> 
+          <input class="ml-2" type="radio" id="gender-male" name="gender-male" value="gender1" required>
         </div>
         <div>
-          <label for="gender">Female</label> 
-          <input class="ml-2" type="radio" id="female" name="gender" value="gender2" required>
+          <label for="gender-female">Female</label> 
+          <input class="ml-2" type="radio" id="gender-female" name="gender-female" value="gender2" required>
         </div>
       </div> 
     </fieldset>
@@ -162,6 +161,7 @@
             <label for="other">Other</label> 
             <input type="checkbox" id="other" name="skills" value="other">                 
           </div>
+        </div>
       </div>
 
       <div class="mb-1 mt-4">
@@ -169,6 +169,7 @@
         <textarea name="other" class="other-description" rows="10"></textarea>
       </div>
     </fieldset>
+
     <div class="mt-2 submission">
       <input type="submit" value="Register">
       <input type="reset" value="Reset Form">
