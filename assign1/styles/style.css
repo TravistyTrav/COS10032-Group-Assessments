@@ -383,6 +383,10 @@ code {
         float: none!important;
     }
 
+    .sm-text-left {
+        text-align: start;
+    }
+
     .sm-w-200px {
         display: inline-block;
         width: 200px;
