@@ -257,13 +257,14 @@ code {
 
 
 /* Jobs.html page specific css here */
+/* OLD STYLING THAT CAUSED MISALIGNMENT
 aside {
     width: 30%;
     float: right;
     border-color: #004080;
     font-size: 14px;
 }
-
+*/
 h3 {
     font-size: 20px;
     color: #004080;
@@ -276,8 +277,36 @@ ul{
         font-size: 14px;
 }
 
-#jobdesc{
+.jobdesc{
     font-size: 14px;
+}
+/* header has alignment with 'baseline'; trial and error for this */
+.job-head {
+    align-items: baseline; /* for alignment */
+    gap: 1rem;
+    /* pushing up margins */
+    margin-bottom: 0.25rem;
+    margin: 0 0 .25rem 0 
+}
+
+.job-salary {
+    font-weight: 700;
+    font-size: 14px;
+    color: #004080;
+    text-align: right;
+}
+
+h4 {
+    font-size: 16px;
+    color: #004080;
+    margin-bottom: 8px;    
+}
+
+.job-benefits-row { /* top-align both columns now the benefits lists both aside and non-aside elements are in line*/
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 2rem;
 }
 
 /* About.html page specifis css here */
@@ -372,7 +401,7 @@ code {
         grid-template-columns: auto;
     }
     
-    .job-benifits-aside {
+    .job-salary{
         float: none;
         width: 100%;
     }

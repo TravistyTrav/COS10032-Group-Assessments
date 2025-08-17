@@ -37,22 +37,43 @@
   subsections, lists etc. using the appropriate HTML elements
 -->
  <!--Job 1 Machine Learning Engineer-->
-  <h2>Machine Learning Engineer</h2>
-  <h3>Google REF: FHISD<aside class="job-benifits-aside">Salary: $120,000 per annum</aside></h3>
+ <!-- Header has dividers for better alignment, previous layout had many errors and upon fixing them, the page was misaligned-->
+ <div class="job-head">
+  <div class="job-head-left">
+    <h2>Machine Learning Engineer</h2>
+    <h3>Google REF: FHISD</h3>
+  </div>
+  <aside class="job-salary">
+    Salary: $120,000 per annum</aside>
+ </div>
 
-    <ul>Benefits:
-      <aside class="job-benifits-aside">
-        <li>Full work from home available (optional)</li>
-        <li>4 paid volunteer leave days</li>
-      </aside>
-      <li>Discount on all Google products</li>
-      <li>20 days allowance of 'work from anywhere'</li>
+<!-- Benefits section: benefits, list, list on side; lists wrapped in divider as <aside> can't be in <ul>-->
+<section class="job-benefits">
+  <h4>Benefits:</h4>
+  <div class="job-benefits-row">
+    <ul>
+      <li>Full work from home available (optional)</li>
+      <li>4 paid volunteer leave days</li>
     </ul>
-    <br>
-    <hr>
-    <br>
+    <aside class="job-benefits-aside">
+      <ul>
+        <li>Discount on all Google products</li>
+        <li>20 days allowance of 'work from anywhere'</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+<br><hr><br> <!-- lines for styling between sections-->
+<!-- next section is job description: simple paragraph in jobdesc class <p> styling-->
+  <!-- General requirements via indeed.com and seek.com: 
+      3+ years in machine learning, data science or related field
+      Strong understanding of statistics and linear algebra
+      Experienced in Python and ML Frameworks such as PyTorch or TensorFlow
+      Comfortable with cloud-based data platforms like Azure or AWS
+      Passionate about AI -->
+      
     <section>
-      <p id="jobdesc">Here at Google, we are looking for enthusiastic machine learning engineers. We are aiming to take the next steps in AI, and design intelligence that will
+      <p class="jobdesc">Here at Google, we are looking for enthusiastic machine learning engineers. We are aiming to take the next steps in AI, and design intelligence that will
         propel humanity forward! To be considered for this role, you must have at least 2 years in machine learning, data science or a related field.
         A minimum requirement is a Bachelor's Degree in Computer Science, Data Science, or a related subject. We are looking for someone with a
         strong understanding of statistics, linear algebra and probability, well-learned in Python and not stranger to ML Frameworks such as PyTorch or
@@ -60,36 +81,37 @@
         to work for one of the biggest Tech companies in the world, please apply now with the reference number, we are dying to meet you!
       </p>
       </section>
-      <!-- General requirements via indeed.com and seek.com: 
-      3+ years in machine learning, data science or related field
-      Strong understanding of statistics and linear algebra
-      Experienced in Python and ML Frameworks such as PyTorch or TensorFlow
-      Comfortable with cloud-based data platforms like Azure or AWS
-      Passionate about AI 
-  -->
+      
 <br>
 <!--Job 2 Senior Data Analyst-->
-  <h2>Senior Data Analyst</h2>
-  <h3>Sportsbet REF: SPGHF<aside class="job-benifits-aside">Salary: $115,000 per annum</aside></h3>
-      <ul>Benefits:
-        <aside  class="job-benifits-aside">
-          <li>Free sporting events in Australia</li>
-          <li>12 weeks parental leave for primary carer, 6 for secondary</li>
-        </aside>
-        <li>Hybrid work from home for work life balance</li>
-        <li>2 paid volunteer leave days</li>
-      </ul>
-      <br>
-      <hr>
-      <br>
+<!-- Header has dividers for better alignment, previous layout had many errors and upon fixing them, the page was misaligned-->
+<div class="job-head">
+  <div class="job-head-left">
+    <h2>Senior Data Analyst</h2>
+    <h3>Sportsbet REF: SPGH</h3>
+  </div>
+  <aside class="job-salary">Salary: $115,000 per annum</aside>
+</div>
+
+<!-- Benefits section: benefits, list, list on side; lists wrapped in divider as <aside> can't be in <ul>-->
   <section>
-    <p id="jobdesc">Would you like to work for Australia's biggest online gaming company? Sportsbet is looking for someone to fulfil the senior data analyst role.
-      Enjoy a plethora of benefits while working for a highly positive work environment with lucrative opportunities for career growth! 
-    We are looking for someone with at least 3 years experience in data analysis, data science, or a related field. Experience with Stack, SQL, R, Python for modelling are compulsory.
-    To be successful, you must be comfortable working with cloud-based data platforms like Azure, and have a passion for team-based working environments, project handling, and meeting KPI's.
-      If this sounds like the job for you, please contact us right away with the reference number!</p>
+    <h4>Benefits:</h4>
+    <div class="job-benefits-row">
+      <ul>
+        <li>Free sporting events in Austrlia</li>
+        <li>12 weeks parental leave for primary carer, 6 for secondary</li>
+      </ul>
+      <aside  class="job-benefits-aside"></aside>
+        <ul>
+          <li>Hybrid work from home for work-life balance</li>
+          <li>2 paid volunteer leave days</li>
+        </ul>
+      </div>
     </section>
-<!--
+    
+  <br><hr><br><!-- lines for styling between sections-->
+  <!-- next section is job description: simple paragraph in jobdesc class <p> styling-->
+    <!--
   General requirements for this role via indeed.com and seek.com (multiple advertisements):
     Have 3+ years of experience in data analysis, data science, consulting or a related field.
     Know your way around data visualisation tools like Power BI, SaaS, Tableu, etc.
@@ -97,8 +119,16 @@
     Enjoy training and mentoring and helping others to use data effectively is second nature to you.
     Have a passion for problem-solving and making data accessible to non-technical stakeholders.
     Experience working with GPTs, LLM tools, or AI workflows a strong plus
-    Comfortable working with cloud-based data platforms, ideally within Azure.
--->
+    Comfortable working with cloud-based data platforms, ideally within Azure. -->
+
+  <section>
+    <p class="jobdesc">Would you like to work for Australia's biggest online gaming company? Sportsbet is looking for someone to fulfil the senior data analyst role.
+      Enjoy a plethora of benefits while working for a highly positive work environment with lucrative opportunities for career growth! 
+    We are looking for someone with at least 3 years experience in data analysis, data science, or a related field. Experience with Stack, SQL, R, Python for modelling are compulsory.
+    To be successful, you must be comfortable working with cloud-based data platforms like Azure, and have a passion for team-based working environments, project handling, and meeting KPI's.
+      If this sounds like the job for you, please contact us right away with the reference number!</p>
+    </section>
+
 </main>
   <footer>
     &copy; 2025 Dunder Mifflin I.T. | All rights reserved
