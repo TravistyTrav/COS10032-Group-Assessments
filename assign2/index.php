@@ -10,7 +10,6 @@ require_once 'settings.php';
 </head>
 <body>
   <?php include 'header.inc'; ?>
-  <?php include 'menu.inc'; ?>
   <main class="container">
     <h2>Welcome</h2>
     <p>This demo site showcases server-side PHP (mysqli) for managing Expressions of Interest (EOI) as per the COS10032 Part 2 spec.</p>
