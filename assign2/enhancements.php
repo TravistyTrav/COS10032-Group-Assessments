@@ -36,7 +36,7 @@ require_once 'settings.php';
     </p>
     <br>
     <p>
-      Similar behaviour was implemented on our <a href="about.html#schedule-table">schedule table</a>. Since this table starts to overflow on smaller screens, we stack it vertically for those smaller devices.
+      Similar behaviour was implemented on our <a href="about.php#schedule-table">schedule table</a>. Since this table starts to overflow on smaller screens, we stack it vertically for those smaller devices.
     </p>
     <br>
     <p>Here you can find reference to this implementation:<br>

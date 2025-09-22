@@ -1,7 +1,4 @@
-<?php
-require_once 'settings.php';
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Dunder Mifflin I.T. Company</title>
