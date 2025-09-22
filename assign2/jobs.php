@@ -83,7 +83,7 @@ require_once 'settings.php';
 <div class="job-head">
   <div class="job-head-left">
     <h2>Senior Data Analyst</h2>
-    <h3>REF: SPGH</h3>
+    <h3>REF: SPGHA</h3>
   </div>
   <aside class="job-salary float-right sm-text-left">Salary: $115,000-$125,000 per annum</aside>
 </div>
