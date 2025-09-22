@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>About - Dunder Mifflin I.T. Company</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We link companies with paper products via our SaaS">
+    <meta name="keywords" content="Software, IT Company, IT Employment, Web development">
+
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<?php include 'header.inc'; ?>
+<main id="about">
+
+ <h1 class="text-center">About Us</h1>
+ <br>
+ <dl>
+  <dt class="mb-1"><b>Group Name:</b></dt>
+  <dd>Team Red Rats</dd>
+  <dt class="mt-1 mb-1"><b>Group ID</b></dt>
+  <dd>Team1_Thu830</dd>
+  <dt class="mt-1 mb-1"><b>Tutor Name:</b></dt>
+  <dd>Md Kafil Uddin</dd>
+  <dt class="mt-1 mb-1"><b>Course:</b></dt>
+  <dd>COS10032 Computing Systems Project</dd>
+ </dl>
+<br>
+  <img class="image" src="images/red-rats-team-image.webp" alt="Dunder Mifflin I.T. Worker">
+<br><hr><br>
+
+<h2 class="text-center">Our Schedule</h2>
+ <table id="schedule-table" class="text-center">
+  <tr>
+    <th>Monday</th>
+    <th>Tuesday</th>
+    <th>Wednesday</th>
+    <th>Thursday</th>
+  </tr>
+  <tr>
+    <td class="class_fop">
+      <p>8:30 - 10:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+    <td class="class_csp">
+      <p>10:30 - 12:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+    <td class="class_fop">
+      <p>8:30 - 10:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+    <td class="class_csp">
+      <p>8:30 - 10:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_nf">
+      <p>10:30 - 12:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+    <td class="class_fop">
+      <p>10:30 - 12:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+    <td>
+    </td>
+    <td class="class_nf">
+      <p>15:30 - 17:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+    <td class="class_nf">
+      <p>14:30 - 16:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_csp">
+      <p>15:30 - 17:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+  </tr>
+ </table>
+
+
+  <table id="mobile-schedule-table" class="text-center">
+  <tr>
+    <th>Monday</th>
+  </tr>
+  <tr>
+    <td class="class_fop">
+      <p>8:30 - 10:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_nf">
+      <p>10:30 - 12:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_csp">
+      <p>15:30 - 17:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+  </tr>
+  <tr>
+    <th>Tuesday</th>
+  </tr>
+  <tr>
+    <td class="class_csp">
+      <p>10:30 - 12:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+  </tr>
+  <tr>
+    <th>Wednesday</th>
+  </tr>
+  <tr>
+    <td class="class_fop">
+      <p>8:30 - 10:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_ct">
+      <p>13:30 - 15:30</p>
+      <p>Computer Technology</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_nf">
+      <p>15:30 - 17:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+  </tr>
+  <tr>
+    <th>Thursday</th>
+  </tr>
+  <tr>
+    <td class="class_csp">
+      <p>8:30 - 10:30</p>
+      <p>Computing Systems Project</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_fop">
+      <p>10:30 - 12:30</p>
+      <p>Fundamentals of Programming</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="class_nf">
+      <p>14:30 - 16:30</p>
+      <p>Network Fundamentals</p>
+    </td>
+  </tr>
+ </table>
+<br><hr><br>
+
+<h2 class="text-center">Contact Us</h2>
+
+ <h4>Travis Whitney</h4>
+ <p><a href="mailto:106130521@student.swin.edu.au">106130521@student.swin.edu.au</a></p>
+ <br>
+ <h4>Rohan Jouchims</h4>
+ <p><a href="mailto:106161521@student.swin.edu.au">106161521@student.swin.edu.au</a></p>
+ <br>
+ <h4>Md Mosfiqur Rahman Mollick</h4>
+ <p><a href="mailto:105732939@student.swin.edu.au">105732939@student.swin.edu.au</a></p>
+ <br>
+ <h4>David Ogwal-Otyek</h4>
+ <p><a href="mailto:106109770@student.swin.edu.au">106109770@student.swin.edu.au</a></p>
+    
+</main>
+<?php include 'footer.inc'; ?>
+</body>
+</html>

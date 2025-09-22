@@ -1,0 +1,55 @@
+<?php
+require_once 'settings.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Enhancements - Dunder Mifflin I.T. Company</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We link companies with paper products via our SaaS">
+    <meta name="keywords" content="Software, IT Company, IT Employment, Web development">
+
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<?php include 'header.inc'; ?>
+  <main>
+    <h1 class="text-center">Enhancements</h1>
+    <p class="text-center">Here we will go over additional css implementations we have used to enhance the experience on this website further than the basic requirements of this project.</p>
+    <br><hr><br>
+    <h2>Media Queries</h2>
+    <p>We have used media queries to adjust our website's appearance on smaller device screen widths, to make the website more readable.</p>
+    <br>
+    <code>
+      @media screen and (min-width: 760px) and (max-width:1280px) {
+      }
+    </code>
+    <br><br>
+    <p>An example of where this is used is on our banner. On larger screens the banner takes up 40% view height. This results in a lot of screen realestate being taken up on smaller screens. 
+      To resolve this, we have set the banner to a fixed height on devices smaller than 760px wide, which should cover majority of mobile devices.</p>
+    <br>
+    <p>
+      This is also applied to our header menu. On smaller screen sizes this menu would overflow off the screen.
+      So instead, we chose to stack this menu vertically on small devices.
+    </p>
+    <br>
+    <p>
+      Similar behaviour was implemented on our <a href="about.html#schedule-table">schedule table</a>. Since this table starts to overflow on smaller screens, we stack it vertically for those smaller devices.
+    </p>
+    <br>
+    <p>Here you can find reference to this implementation:<br>
+    <a href="https://www.w3schools.com/css/css_rwd_mediaqueries.asp" target="_blank">Media Queries - W3Schools</a></p>
+    <br>
+    <h2>Fixed Position Navigation</h2>
+    <p>A fixed position style has been applied to our navigation menu. This will help users on pages that may have very long content. Instead of scrolling back to the top of the page, they can access the menu at any time.</p>
+    <br>
+    <code>nav { position: fixed; }</code>
+    <br><br>
+    <p>Here you can find reference to this implementation:<br>
+    <a href="https://www.w3schools.com/css/css_positioning.asp" target="_blank">CSS Positioning - W3Schools</a>
+  </main>
+<?php include 'footer.inc'; ?>
+</body>
+</html>
