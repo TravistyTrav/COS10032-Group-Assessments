@@ -10,10 +10,11 @@ require_once 'settings.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="We link companies with paper products via our SaaS">
   <meta name="keywords" content="Software, IT Company, IT Employment, Web development">
+
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
   <?php include 'header.inc'; ?>
-  <?php include 'menu.inc'; ?>
     <main>
     <section>
       <h2 class="text-center">Welcome to Dunder Mifflin I.T.</h2>
@@ -55,10 +56,6 @@ require_once 'settings.php';
       <a href="https://youtu.be/48FZ73o3kDs" target="_blank">https://youtu.be/48FZ73o3kDs</a>
       </p>
     </section>
-  <main class="container">
-    <h2>Welcome</h2>
-    <p>This demo site showcases server-side PHP (mysqli) for managing Expressions of Interest (EOI) as per the COS10032 Part 2 spec.</p>
-    <p>Watch our demo video: <a href="#" target="_blank" rel="noopener">YouTube link</a></p>
   </main>
   <?php include 'footer.inc'; ?>
 </body>
