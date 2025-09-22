@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST)) {
 $conn = db_connect_or_exit();
 
 // Create table if not exists
-$create = "CREATE TABLE IF NOT EXISTS eoi (
+$create = "CREATE TABLE IF NOT EXISTS EOI (
   EOInumber INT AUTO_INCREMENT PRIMARY KEY,
   job_ref CHAR(5) NOT NULL,
   first_name VARCHAR(20) NOT NULL,
@@ -37,22 +37,18 @@ mysqli_query($conn, $create);
 
 // Sanitize
 $job_ref = clean_input($_POST['job_ref'] ?? "");
-$first   = clean_input($_POST['first_name'] ?? "");
-$last    = clean_input($_POST['last_name'] ?? "");
-$dob_in  = clean_input($_POST['dob'] ?? "");
+$first_name = clean_input($_POST['first_name'] ?? "");
+$last_name = clean_input($_POST['last_name'] ?? "");
+$dob_in = clean_input($_POST['dob'] ?? "");
 $gender  = clean_input($_POST['gender'] ?? "");
 $street  = clean_input($_POST['street'] ?? "");
-$suburb  = clean_input($_POST['suburb'] ?? "");
+$city  = clean_input($_POST['suburb'] ?? "");
 $state   = clean_input($_POST['state'] ?? "");
-$pcode   = clean_input($_POST['postcode'] ?? "");
+$postcode   = clean_input($_POST['postcode'] ?? "");
 $email   = clean_input($_POST['email'] ?? "");
-$phone   = clean_input($_POST['phone'] ?? "");
-$skill1  = isset($_POST['skill1']) ? clean_input($_POST['skill1']) : NULL;
-$skill2  = isset($_POST['skill2']) ? clean_input($_POST['skill2']) : NULL;
-$skill3  = isset($_POST['skill3']) ? clean_input($_POST['skill3']) : NULL;
-$skill4  = isset($_POST['skill4']) ? clean_input($_POST['skill4']) : NULL;
-$other_chk = isset($_POST['other_skills_chk']) ? true : false;
-$other   = clean_input($_POST['other_skills'] ?? "");
+$ph_number   = clean_input($_POST['phone'] ?? "");
+$skills  = isset($_POST['skill1']) ? clean_input($_POST['skill1']) : NULL;
+$other_skills = isset($_POST['other_skills_chk']) ? true : false;
 
 // Validate
 $errors = [];
@@ -97,15 +93,15 @@ if (!empty($errors)) {
 
 // Convert dob to Y-m-d for MySQL
 list($d,$m,$y) = explode("/", $dob_in);
-$dob_sql = sprintf("%04d-%02d-%02d", intval($y), intval($m), intval($d));
+$dob = sprintf("%04d-%02d-%02d", intval($y), intval($m), intval($d));
 
 // Insert (prepared)
 $stmt = mysqli_prepare($conn, "INSERT INTO eoi
-(job_ref, first_name, last_name, dob, gender, street, suburb, state, postcode, email, phone, skill1, skill2, skill3, skill4, other_skills, status)
+(job_ref, first_name, last_name, dob, gender, street, city, state, postcode, email, ph_number, skills, other_skills)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'New')");
 mysqli_stmt_bind_param($stmt, "ssssssssssssssss",
-  $job_ref, $first, $last, $dob_sql, $gender, $street, $suburb, $state, $pcode, $email, $phone,
-  $skill1, $skill2, $skill3, $skill4, $other
+  $job_ref, $first_name, $last_name, $dob, $gender, $street, $city, $state, $postcode, $email, $ph_number,
+  $skills, $other_skills
 );
 $ok = mysqli_stmt_execute($stmt);
 
