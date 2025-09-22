@@ -1,29 +1,132 @@
 <?php
 require_once 'settings.php';
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>ACME Careers – Jobs</title>
-  <link rel="stylesheet" href="styles/style.css">
+     <title>Jobs - Dunder Mifflin I.T. Company</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We link companies with paper products via our SaaS">
+    <meta name="keywords" content="Software, IT Company, IT Employment, Web development">
+
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <?php include 'header.inc'; ?>
-  <?php include 'menu.inc'; ?>
-  <main class="container">
-    <h2>Open Roles</h2>
-    <article class="card">
-      <h3>Junior Web Developer</h3>
-      <p>Reference: <strong>JWD01</strong></p>
-      <p>Build and maintain PHP/MySQL web apps.</p>
-    </article>
-    <article class="card">
-      <h3>IT Support Assistant</h3>
-      <p>Reference: <strong>ITS02</strong></p>
-      <p>Provide first-line support and troubleshoot issues.</p>
-    </article>
-  </main>
-  <?php include 'footer.inc'; ?>
+<?php include 'header.inc'; ?>
+<main>
+<!--
+  Your job descriptions should be concise but as a minimum include :
+  • Company’s position description reference number (5 alphanumeric characters)
+  • Position title
+  • Brief description of the position
+  • Salary range
+  • The title of the position to whom the successful applicant will report
+  • Key responsibilities. A list of the specific tasks that are to be performed
+  • Required qualifications, skills, knowledge and attributes. These should be divided into
+  “essential” and “preferable”. These requirements should include such things as
+  programming languages required, number-of-years of experience required, etc..
+  The content of the job description should be appropriately structured with headings, sections,
+  subsections, lists etc. using the appropriate HTML elements
+-->
+ <!--Job 1 Machine Learning Engineer-->
+ <!-- Header has dividers for better alignment, previous layout had many errors and upon fixing them, the page was misaligned-->
+ <div class="job-head">
+  <div class="job-head-left">
+    <h2>Machine Learning Engineer</h2>
+    <h3>REF: FHISD</h3>
+  </div>
+  <aside class="job-salary float-right sm-text-left">
+    Salary: $120,000-$140,000 per annum</aside>
+ </div>
+
+<!-- Benefits section: benefits, list, list on side; lists wrapped in divider as <aside> can't be in <ul>-->
+<section class="job-benefits">
+  <h4>Benefits:</h4>
+  <div class="job-benefits-row">
+    <ul>
+      <li>Full work from home available (optional)</li>
+      <li>4 paid volunteer leave days</li>
+    </ul>
+    <aside class="job-benefits-aside">
+      <ul>
+        <li>Discount on all Dunder Mifflin products</li>
+        <li>20 days allowance of 'work from anywhere'</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+<br><hr><br> <!-- lines for styling between sections-->
+<!-- next section is job description: simple paragraph in jobdesc class <p> styling-->
+  <!-- General requirements via indeed.com and seek.com: 
+      3+ years in machine learning, data science or related field
+      Strong understanding of statistics and linear algebra
+      Experienced in Python and ML Frameworks such as PyTorch or TensorFlow
+      Comfortable with cloud-based data platforms like Azure or AWS
+      Passionate about AI -->
+      
+    <section>
+      <h4>Here at Dunder Mifflin IT, we are looking for enthusiastic machine learning engineers.</h4>
+      <p class="jobdesc">We are aiming to take the next steps in AI, and design intelligence that will
+        propel humanity forward! To be considered for this role, you must have at least 2 years in machine learning, data science or a related field.
+        A minimum requirement is a Bachelor's Degree in Computer Science, Data Science, or a related subject. We are looking for someone with a
+        strong understanding of statistics, linear algebra and probability, well-learned in Python and not stranger to ML Frameworks such as PyTorch or
+        TensorFlow, and finally, comfortable with cloud-based data platforms, specifically Azure. You will report to a team leader and be part of a project-oriented team. If this sounds like you, and you have a passion for AI, and want
+        to work for one of the biggest Tech companies in the world, please apply now with the reference number, we are dying to meet you!
+      </p>
+      </section>
+      
+<br>
+<!--Job 2 Senior Data Analyst-->
+<!-- Header has dividers for better alignment, previous layout had many errors and upon fixing them, the page was misaligned-->
+<div class="job-head">
+  <div class="job-head-left">
+    <h2>Senior Data Analyst</h2>
+    <h3>REF: SPGH</h3>
+  </div>
+  <aside class="job-salary float-right sm-text-left">Salary: $115,000-$125,000 per annum</aside>
+</div>
+
+<!-- Benefits section: benefits, list, list on side; lists wrapped in divider as <aside> can't be in <ul>-->
+  <section>
+    <h4>Benefits:</h4>
+    <div class="job-benefits-row">
+      <ul>
+        <li>Free sporting events in Australia from our sponsors</li>
+        <li>Full work from home available (optional)</li>
+      </ul>
+      <aside  class="job-benefits-aside"></aside>
+        <ul>
+          <li>Discount on all Dunder Mifflin products</li>
+          <li>2 paid volunteer leave days</li>
+        </ul>
+      </div>
+    </section>
+    
+  <br><hr><br><!-- lines for styling between sections-->
+  <!-- next section is job description: simple paragraph in jobdesc class <p> styling-->
+    <!--
+  General requirements for this role via indeed.com and seek.com (multiple advertisements):
+    Have 3+ years of experience in data analysis, data science, consulting or a related field.
+    Know your way around data visualisation tools like Power BI, SaaS, Tableu, etc.
+    Experienced with SQL, R, Python for modelling and have a solid understanding of data engineering concepts.
+    Enjoy training and mentoring and helping others to use data effectively is second nature to you.
+    Have a passion for problem-solving and making data accessible to non-technical stakeholders.
+    Experience working with GPTs, LLM tools, or AI workflows a strong plus
+    Comfortable working with cloud-based data platforms, ideally within Azure. -->
+
+  <section>
+    <h4>Would you like to work in a senior position at one of Australia's biggest IT companies?</h4>
+    <p class="jobdesc"> We are looking for someone to fulfil the senior data analyst role.
+      Reporting to our board directly, enjoy a plethora of benefits while working for a highly positive work environment with lucrative opportunities for career growth! 
+    We are looking for someone with at least 3 years experience in data analysis, data science, or a related field. Experience with Stack, SQL, R, Python for modelling are compulsory.
+    To be successful, you must be comfortable working with cloud-based data platforms like Azure, and have a passion for team-based working environments, project handling, and meeting KPI's.
+      If this sounds like the job for you, please contact us right away with the reference number!</p>
+    </section>
+
+</main>
+<?php include 'footer.inc'; ?>
 </body>
 </html>
+

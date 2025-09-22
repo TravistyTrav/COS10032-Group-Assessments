@@ -1,10 +1,10 @@
 <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="apply.html">Apply</a>
-    <a href="enhancements.html">Enhancements</a>
-    <a href="jobs.html">Jobs</a>
+    <a href="index.php">Home</a>
+    <a href="about.php">About</a>
+    <a href="apply.php">Apply</a>
+    <a href="enhancements.php">Enhancements</a>
+    <a href="jobs.php">Jobs</a>
 </nav>
 <header>
-    <a href="index.html"><img src="images/dunder-mifflin-it-company.png" alt="Dunder Mifflin I.T. Company Logo"></a>
+    <a href="index.php"><img src="images/dunder-mifflin-it-company.png" alt="Dunder Mifflin I.T. Company Logo"></a>
   </header>
