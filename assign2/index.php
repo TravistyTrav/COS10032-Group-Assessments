@@ -55,6 +55,10 @@ require_once 'settings.php';
       <a href="https://youtu.be/48FZ73o3kDs" target="_blank">https://youtu.be/48FZ73o3kDs</a>
       </p>
     </section>
+  <main class="container">
+    <h2>Welcome</h2>
+    <p>This demo site showcases server-side PHP (mysqli) for managing Expressions of Interest (EOI) as per the COS10032 Part 2 spec.</p>
+    <p>Watch our demo video: <a href="#" target="_blank" rel="noopener">YouTube link</a></p>
   </main>
   <?php include 'footer.inc'; ?>
 </body>
