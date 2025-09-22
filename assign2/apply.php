@@ -142,17 +142,17 @@ require_once 'settings.php';
           <p>Skills:</p>
           <div class="grid-form-skills mt-2">
             <label for="html">HTML</label> 
-			      <input type="checkbox" id="html" name="skills" value="html" checked="checked">
+			      <input type="checkbox" id="html" name="skill_html" value="html" checked="checked">
             <label for="css">CSS</label> 
-            <input type="checkbox" id="css" name="skills" value="css">
+            <input type="checkbox" id="css" name="skill_css" value="css">
             <label for="javascript">JavaScript</label> 
-            <input type="checkbox" id="javascript" name="skills" value="javascript">
+            <input type="checkbox" id="javascript" name="skill_js" value="javascript">
             <label for="php">PHP</label> 
-            <input type="checkbox" id="php" name="skills" value="php">
+            <input type="checkbox" id="php" name="skill_php" value="php">
             <label for="mysql">MySQL</label> 
-            <input type="checkbox" id="mysql" name="skills" value="mysql">
+            <input type="checkbox" id="mysql" name="skill_mysql" value="mysql">
             <label for="other">Other</label> 
-            <input type="checkbox" id="other" name="skills" value="other">                 
+            <input type="checkbox" id="other" name="skill_other" value="other">                 
           </div>
         </div>
       </div>
