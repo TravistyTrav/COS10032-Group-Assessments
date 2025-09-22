@@ -1,8 +1,8 @@
 <?php
 $host   = "feenix-mariadb.swin.edu.au";
-$user   = "s";      
-$pwd    = "";      
-$sql_db = "s_db";   
+$user   = "s106130521";      
+$pwd    = "111194";      
+$sql_db = "s106130521_db";   
 function db_connect_or_exit() {
   global $host, $user, $pwd, $sql_db;
   $conn = @mysqli_connect($host, $user, $pwd, $sql_db);
