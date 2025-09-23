@@ -14,7 +14,7 @@ require_once 'settings.php';
     <link rel="stylesheet"       href="styles/style.css">
 </head>
 <body>  
-<?php include 'header.inc'; ?>
+<?php include 'components/header.inc'; ?>
 <main class="apply">
   <div>
     <h1 class="mb-1 text-center">Apply</h1>
@@ -30,7 +30,7 @@ require_once 'settings.php';
     </p>
   </div>
 
-  <form id="application" method="post" action="http://mercury.swin.edu.au/it000000/formtest.php">
+  <form id="application" method="post" action="processEOI.php">
     <!-- Reference number -->
     <fieldset class="mt-1 pb-4">
       <p class="mt-1 mb-1 text-center">
@@ -68,17 +68,17 @@ require_once 'settings.php';
     
     <!-- Gender Details -->
     <fieldset class="mt-2 pb-4">
-      <p class="mt-1 mb-1 text-center ul">What best describes you?</p>
-      <div class="grid-form mt-2">
+      <legend class="mt-1 mb-1 text-center ul">What best describes you?</legend>
+      <div class="grid-form mt-2" role="radiogroup" aria-labelledby="gender-label">
         <div>
-          <label for="gender-male">Male</label> 
-          <input class="ml-2" type="radio" id="gender-male" name="gender-male" value="gender1" required>
+          <input class="ml-2" type="radio" id="gender-male" name="gender" value="Male" required>
+          <label for="gender-male">Male</label>
         </div>
         <div>
-          <label for="gender-female">Female</label> 
-          <input class="ml-2" type="radio" id="gender-female" name="gender-female" value="gender2" required>
+          <input class="ml-2" type="radio" id="gender-female" name="gender" value="Female">
+          <label for="gender-female">Female</label>
         </div>
-      </div> 
+      </div>
     </fieldset>
 
     <!-- Address Section-->
@@ -170,6 +170,6 @@ require_once 'settings.php';
   </form>
 
 </main>
-<?php include 'footer.inc'; ?>
+<?php include 'components/footer.inc'; ?>
 </body>
 </html>

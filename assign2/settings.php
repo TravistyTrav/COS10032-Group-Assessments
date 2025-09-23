@@ -1,4 +1,5 @@
 <?php
+
 $host   = "feenix-mariadb.swin.edu.au";
 $user   = "s106130521";      
 $pwd    = "111194";      

@@ -364,6 +364,78 @@ code {
     margin-right: 1rem;
 }
 
+
+/* Success Page */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+.table-wrapper {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#eoi-summary {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  overflow: hidden;         
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+
+#eoi-summary tbody tr {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: start;
+}
+
+#eoi-summary th,
+#eoi-summary td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  vertical-align: top;
+}
+
+#eoi-summary th {
+  background: rgba(0,0,0,0.02);
+  font-weight: 600;
+  text-align: left;
+  color: #1f2937;
+}
+
+#eoi-summary td {
+  color: #374151;
+}
+
+#eoi-summary tbody tr:nth-child(even) td {
+  background: rgba(0,0,0,0.015);
+}
+
+#eoi-summary tbody tr:last-child th,
+#eoi-summary tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+#eoi-summary tbody tr:hover th,
+#eoi-summary tbody tr:hover td {
+  background: rgba(37,99,235,0.05);
+}
+
+#eoi-summary .skill-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+
+
 /* Mobile Responsiveness */
 
 @media screen and (max-width: 760px) {
@@ -396,6 +468,10 @@ code {
         margin-left: 0;
         margin-right: 0;
     }
+
+    #eoi-summary tbody tr {
+        grid-template-columns: 160px 1fr;
+    }
 }   
 
 @media screen and (max-width: 660px){
@@ -426,5 +502,26 @@ code {
 
     #schedule-table {
         display: none;
+    }
+
+    #eoi-summary tbody tr {
+        grid-template-columns: 1fr;
+        row-gap: 2px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    #eoi-summary th {
+        border-bottom: 0;
+        background: transparent;
+        padding-bottom: 4px;
+        color: #111827; /* slate-900 */
+    }
+
+    #eoi-summary td {
+        background: rgba(0,0,0,0.02);
+        border-radius: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }

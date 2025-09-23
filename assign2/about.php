@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<?php include 'header.inc'; ?>
+<?php include 'components/header.inc'; ?>
 <main id="about">
 
  <h1 class="text-center">About Us</h1>
@@ -202,6 +202,6 @@
  <p><a href="mailto:106109770@student.swin.edu.au">106109770@student.swin.edu.au</a></p>
     
 </main>
-<?php include 'footer.inc'; ?>
+<?php include 'components/footer.inc'; ?>
 </body>
 </html>

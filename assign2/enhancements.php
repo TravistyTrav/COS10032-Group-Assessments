@@ -14,7 +14,7 @@ require_once 'settings.php';
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<?php include 'header.inc'; ?>
+<?php include 'components/header.inc'; ?>
   <main>
     <h1 class="text-center">Enhancements</h1>
     <p class="text-center">Here we will go over additional css implementations we have used to enhance the experience on this website further than the basic requirements of this project.</p>
@@ -50,6 +50,6 @@ require_once 'settings.php';
     <p>Here you can find reference to this implementation:<br>
     <a href="https://www.w3schools.com/css/css_positioning.asp" target="_blank">CSS Positioning - W3Schools</a>
   </main>
-<?php include 'footer.inc'; ?>
+<?php include 'components/footer.inc'; ?>
 </body>
 </html>

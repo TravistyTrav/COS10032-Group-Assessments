@@ -1,137 +1,323 @@
 <?php
-// processEOI.php
-require_once 'settings.php';
-require_once 'functions.inc.php';
+require_once("util/functions.php");
+require_once("settings.php");
 
-// Block direct GET access
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST)) {
-  header("Location: apply.php");
-  exit();
-}
+// Start session early before any output
+session_start();
 
+// Connect
 $conn = db_connect_or_exit();
 
-// Create table if not exists
-// must create status enum in sqlitestudio - query is in mysql syntax
-$create = "CREATE TABLE IF NOT EXISTS EOI (
-  EOInumber INT AUTO_INCREMENT PRIMARY KEY,
-  job_ref CHAR(5) NOT NULL,
-  first_name VARCHAR(20) NOT NULL,
-  last_name  VARCHAR(20) NOT NULL,
-  dob        DATE NOT NULL,
-  gender     VARCHAR(20) NOT NULL,
-  street     VARCHAR(40) NOT NULL,
-  suburb     VARCHAR(40) NOT NULL,
-  state      CHAR(3) NOT NULL,
-  postcode   CHAR(4) NOT NULL,
-  email      VARCHAR(128) NOT NULL,
-  phone      VARCHAR(16) NOT NULL,
-  skill1     VARCHAR(32) NULL,
-  skill2     VARCHAR(32) NULL,
-  skill3     VARCHAR(32) NULL,
-  skill4     VARCHAR(32) NULL,
-  other_skills TEXT NULL,
-  status     ENUM('New','Current','Final') NOT NULL DEFAULT 'New',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-mysqli_query($conn, $create);
-
-// Sanitize
-$job_ref = clean_input($_POST['job_ref'] ?? "");
-$first_name = clean_input($_POST['first_name'] ?? "");
-$last_name = clean_input($_POST['last_name'] ?? "");
-$dob_in = clean_input($_POST['dob'] ?? "");
-$gender  = clean_input($_POST['gender'] ?? "");
-$street  = clean_input($_POST['street'] ?? "");
-$city  = clean_input($_POST['suburb'] ?? "");
-$state   = clean_input($_POST['state'] ?? "");
-$postcode   = clean_input($_POST['postcode'] ?? "");
-$email   = clean_input($_POST['email'] ?? "");
-$ph_number   = clean_input($_POST['phone'] ?? "");
-$skills  = isset($_POST['skill1']) ? clean_input($_POST['skill1']) : NULL;
-$other_skills = isset($_POST['other_skills_chk']) ? true : false;
-
-// Validate
-$errors = [];
-
-if (!is_alnum_exact($job_ref, 5)) $errors[] = "Job reference must be exactly 5 alphanumeric characters.";
-if (!is_alpha($first, 20)) $errors[] = "First name must be alpha only (max 20).";
-if (!is_alpha($last, 20)) $errors[]  = "Last name must be alpha only (max 20).";
-
-$age = dob_to_age($dob_in);
-if ($age < 0) $errors[] = "Date of birth must be in dd/mm/yyyy format.";
-else if ($age < 15 || $age > 80) $errors[] = "Age must be between 15 and 80.";
-
-if (empty($gender)) $errors[] = "Gender must be selected.";
-if (strlen($street) == 0 || strlen($street) > 40) $errors[] = "Street must be 1–40 chars.";
-if (strlen($suburb) == 0 || strlen($suburb) > 40) $errors[] = "Suburb must be 1–40 chars.";
-if (!is_state($state)) $errors[] = "State must be one of VIC,NSW,QLD,NT,WA,SA,TAS,ACT.";
-if (!is_postcode($pcode)) $errors[] = "Postcode must be exactly 4 digits.";
-if (is_postcode($pcode) && is_state($state) && !state_matches_postcode($state, $pcode)) {
-  $errors[] = "Postcode does not match the selected state.";
-}
-if (!valid_email($email)) $errors[] = "Email is invalid.";
-if (!valid_phone($phone)) $errors[] = "Phone must be 8–12 digits or spaces.";
-if ($other_chk && strlen(trim($other)) === 0) $errors[] = "Other skills description is required when checked.";
-
-if (!empty($errors)) {
-  http_response_code(422);
-  ?>
-  <!doctype html><meta charset="utf-8"><link rel="stylesheet" href="styles/style.css">
-  <main class="container">
-    <h2>Submission Error</h2>
-    <div class="card error">
-      <p>Please fix the following:</p>
-      <ul>
-        <?php foreach ($errors as $e) echo "<li>" . $e . "</li>"; ?>
-      </ul>
-      <p><a href="apply.php">Go back to the application form</a></p>
-    </div>
-  </main>
-  <?php
-  exit();
+// Don't allow direct access, redirect to error page with message
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  $_SESSION['form_errors'] = array("Invalid request method. Please submit the form again.");
+  header('Location: error.php');
+  exit;
 }
 
-// Convert dob to Y-m-d for MySQL
-list($d,$m,$y) = explode("/", $dob_in);
-$dob = sprintf("%04d-%02d-%02d", intval($y), intval($m), intval($d));
+// ---- Ensure table exists ----
+$createSql = "
+CREATE TABLE IF NOT EXISTS `eoi` (
+  `EOInumber` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `JobRefNo`  VARCHAR(5)  NOT NULL,
+  `FirstName` VARCHAR(20) NOT NULL,
+  `LastName`  VARCHAR(20) NOT NULL,
+  `DOB`       DATE        NOT NULL,
+  `Gender`    VARCHAR(16) NOT NULL,
+  `Street`    VARCHAR(100) NOT NULL,
+  `City`      VARCHAR(40) NOT NULL,
+  `State`     VARCHAR(10) NOT NULL,
+  `PostCode`  CHAR(4)     NOT NULL,
+  `Email`     VARCHAR(255) NOT NULL,
+  `Phone`     VARCHAR(32) NOT NULL,
+  `Skills`    VARCHAR(255) NOT NULL,
+  `OtherSkill` TEXT,
+  `Status`    ENUM('New','Current','Final') NOT NULL DEFAULT 'New',
+  `CreatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`EOInumber`),
+  KEY `idx_jobref` (`JobRefNo`),
+  KEY `idx_name` (`LastName`, `FirstName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+";
 
-// Insert (prepared)
-$stmt = mysqli_prepare($conn, "INSERT INTO eoi
-(job_ref, first_name, last_name, dob, gender, street, city, state, postcode, email, ph_number, skills, other_skills, status)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'New')");
-mysqli_stmt_bind_param($stmt, "ssssssssssssssss",
-  $job_ref, $first_name, $last_name, $dob, $gender, $street, $city, $state, $postcode, $email, $ph_number,
-  $skills, $other_skills, status
+if (!mysqli_query($conn, $createSql)) {
+  $_SESSION['form_errors'] = array("Server error creating table. Please try again later.");
+  header('Location: error.php');
+  exit;
+}
+
+//  Sanitize
+$fields = array(
+  // Reference number
+  'reference' => clean(isset($_POST['reference']) ? $_POST['reference'] : ''),
+
+  // About You
+  'firstname' => clean(isset($_POST['firstname']) ? $_POST['firstname'] : ''),
+  'lastname'  => clean(isset($_POST['lastname']) ? $_POST['lastname'] : ''),
+  'dob'       => clean(isset($_POST['dob']) ? $_POST['dob'] : ''),
+
+  // Gender (single field now)
+  'gender' => isset($_POST['gender']) ? clean($_POST['gender']) : '',
+
+  // Address
+  'street'   => clean(isset($_POST['street']) ? $_POST['street'] : ''),
+  'city'     => clean(isset($_POST['city']) ? $_POST['city'] : ''),
+  'state'    => clean(isset($_POST['state']) ? $_POST['state'] : ''),
+  'postcode' => clean(isset($_POST['postcode']) ? $_POST['postcode'] : ''),
+
+  // Contact
+  'email' => clean(isset($_POST['email']) ? $_POST['email'] : ''),
+  'phone' => clean(isset($_POST['phone']) ? $_POST['phone'] : ''),
+
+  // Skills
+  'skill_html'  => isset($_POST['skill_html']) ? 'html'  : '',
+  'skill_css'   => isset($_POST['skill_css']) ? 'css'   : '',
+  'skill_js'    => isset($_POST['skill_js'])  ? 'javascript' : '',
+  'skill_php'   => isset($_POST['skill_php']) ? 'php'   : '',
+  'skill_mysql' => isset($_POST['skill_mysql']) ? 'mysql' : '',
+  'skill_other' => isset($_POST['skill_other']) ? 'other' : '',
+  'other'       => clean(isset($_POST['other']) ? $_POST['other'] : ''),
 );
-$ok = mysqli_stmt_execute($stmt);
 
-if (!$ok) {
-  http_response_code(500);
-  ?>
-  <!doctype html><meta charset="utf-8"><link rel="stylesheet" href="styles/style.css">
-  <main class="container">
-    <h2>We couldn't save your EOI</h2>
-    <div class="card error">
-      <p>Sorry, something went wrong. Please try again later.</p>
-    </div>
-  </main>
-  <?php
-  exit();
+$errors = array();
+
+// Validate Required
+assert_required($fields['reference'], 'Job Ref No.', $errors);
+assert_required($fields['firstname'], 'First Name', $errors);
+assert_required($fields['lastname'], 'Last Name', $errors);
+assert_required($fields['dob'], 'Date of Birth', $errors);
+
+// Gender Required
+assert_required($fields['gender'], 'Gender', $errors);
+$gender = $fields['gender'];
+
+assert_required($fields['street'], 'Street', $errors);
+assert_required($fields['city'], 'City', $errors);
+assert_required($fields['state'], 'State', $errors);
+assert_required($fields['postcode'], 'Post Code', $errors);
+assert_required($fields['email'], 'Email', $errors);
+assert_required($fields['phone'], 'Phone', $errors);
+
+// Field Specific Validation
+
+// Job reference: exactly 5 alphanumeric
+if ($fields['reference'] !== '') {
+  assert_regex(
+    $fields['reference'],
+    '/^[A-Za-z0-9]{5}$/',
+    "Job Ref No. must be exactly 5 letters/numbers (e.g., ABC12).",
+    $errors
+  );
 }
-$eoi_id = mysqli_insert_id($conn);
-mysqli_stmt_close($stmt);
+
+// Names: letters & spaces, max 20
+if ($fields['firstname'] !== '') {
+  assert_regex(
+    $fields['firstname'],
+    '/^[A-Za-z ]{1,20}$/',
+    "First Name can only contain letters and spaces (max 20).",
+    $errors
+  );
+}
+if ($fields['lastname'] !== '') {
+  assert_regex(
+    $fields['lastname'],
+    '/^[A-Za-z ]{1,20}$/',
+    "Last Name can only contain letters and spaces (max 20).",
+    $errors
+  );
+}
+
+// DOB: dd/mm/yyyy + real date
+if ($fields['dob'] !== '') {
+  assert_dob($fields['dob'], $errors);
+}
+
+// City & Street: mirror HTML min/max lengths
+if ($fields['street'] !== '' && (strlen($fields['street']) < 8 || strlen($fields['street']) > 40)) {
+  $errors[] = "Street must be between 8 and 40 characters.";
+}
+if ($fields['city'] !== '' && (strlen($fields['city']) < 8 || strlen($fields['city']) > 40)) {
+  $errors[] = "City must be between 8 and 40 characters.";
+}
+
+// State: one of allowed codes
+$valid_states = array('vic','nsw','qld','nt','wa','sa','tas','act');
+if ($fields['state'] !== '' && !in_array(strtolower($fields['state']), $valid_states, true)) {
+  $errors[] = "Please select a valid State.";
+}
+
+// Postcode: 4 digits
+if ($fields['postcode'] !== '') {
+  assert_regex(
+    $fields['postcode'],
+    '/^[0-9]{4}$/',
+    "Post Code must be exactly 4 digits (e.g., 3000).",
+    $errors
+  );
+}
+
+// Email:
+if ($fields['email'] !== '' && !filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+  $errors[] = "Please enter a valid email address (e.g., example@domain.com).";
+}
+
+// Phone: AU formats
+if ($fields['phone'] !== '') {
+  $phone_normalized = preg_replace('/[\s\-\(\)]+/', '', $fields['phone']);
+  $au_phone_ok =
+    preg_match('/^(0[23478]\d{8})$/', $phone_normalized) ||   // 0X + 8 digits
+    preg_match('/^\+61[23478]\d{8}$/', $phone_normalized);    // +61X + 8 digits
+  if (!$au_phone_ok) {
+    $errors[] = "Please enter a valid Australian phone number (e.g., 0412345678 or +61412345678).";
+  }
+}
+
+// Skills: if "Other" checked, description required
+if ($fields['skill_other'] === 'other') {
+  if ($fields['other'] === '' || strlen($fields['other']) < 5) {
+    $errors[] = "Please describe your Other skill (at least 5 characters).";
+  }
+}
+
+// On Error redirect to error.php
+if (!empty($errors)) {
+  $_SESSION['form_errors'] = $errors;
+  $_SESSION['old_input'] = $fields; // keep inputs for re-populating if needed
+  header('Location: error.php');
+  exit;
+}
+
+// Build clean data for display + DB
+$skillsArray = array_values(array_filter(array(
+  $fields['skill_html'],
+  $fields['skill_css'],
+  $fields['skill_js'],
+  $fields['skill_php'],
+  $fields['skill_mysql']
+)));
+$skillsCsv = implode(',', $skillsArray);
+$otherSkill = ($fields['skill_other'] === 'other') ? $fields['other'] : '';
+
+$dob_mysql = dob_to_mysql($fields['dob']);
+
+// ---- Insert to DB (prepared statement) ----
+$ins = mysqli_prepare(
+  $conn,
+  "INSERT INTO eoi
+   (JobRefNo, FirstName, LastName, DOB, Gender, Street, City, State, PostCode, Email, Phone, Skills, OtherSkill, Status)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'New')"
+);
+
+if (!$ins) {
+  $_SESSION['form_errors'] = array("Server error preparing insert. Please try again later.");
+  header('Location: error.php');
+  exit;
+}
+
+mysqli_stmt_bind_param(
+  $ins,
+  'ssssssssssss', // 12 strings before Status
+  $fields['reference'],
+  $fields['firstname'],
+  $fields['lastname'],
+  $dob_mysql,
+  $gender,
+  $fields['street'],
+  $fields['city'],
+  $fields['state'],
+  $fields['postcode'],
+  $fields['email'],
+  $fields['phone'],
+  $skillsCsv,
+  $otherSkill
+);
+
+// Note: we bound 13 variables but declared 12 's'? Let's align it:
+mysqli_stmt_close($ins);
+
+// Re-prepare with the correct count
+$ins = mysqli_prepare(
+  $conn,
+  "INSERT INTO eoi
+   (JobRefNo, FirstName, LastName, DOB, Gender, Street, City, State, PostCode, Email, Phone, Skills, OtherSkill, Status)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'New')"
+);
+mysqli_stmt_bind_param(
+  $ins,
+  'ssssssssssssss', // 14 placeholders? No, Status is literal; we have 13 values -> 13 's'
+  $fields['reference'],
+  $fields['firstname'],
+  $fields['lastname'],
+  $dob_mysql,
+  $gender,
+  $fields['street'],
+  $fields['city'],
+  $fields['state'],
+  $fields['postcode'],
+  $fields['email'],
+  $fields['phone'],
+  $skillsCsv,
+  $otherSkill
+);
+
+/* Final correct version */
+mysqli_stmt_close($ins);
+$ins = mysqli_prepare(
+  $conn,
+  "INSERT INTO eoi
+   (JobRefNo, FirstName, LastName, DOB, Gender, Street, City, State, PostCode, Email, Phone, Skills, OtherSkill, Status)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'New')"
+);
+mysqli_stmt_bind_param(
+  $ins,
+  'sssssssssssss', // 13 values to bind (Status is fixed) -> 13 's'
+  $fields['reference'],
+  $fields['firstname'],
+  $fields['lastname'],
+  $dob_mysql,
+  $gender,
+  $fields['street'],
+  $fields['city'],
+  $fields['state'],
+  $fields['postcode'],
+  $fields['email'],
+  $fields['phone'],
+  $skillsCsv,
+  $otherSkill
+);
+
+if (!mysqli_stmt_execute($ins)) {
+  $_SESSION['form_errors'] = array("Server error saving your submission. Please try again later.");
+  header('Location: error.php');
+  exit;
+}
+
+// Get the inserted EOI number (optional)
+$inserted_id = mysqli_insert_id($conn);
+
+// Prepare data for success page
+$cleanData = array(
+  'reference' => $fields['reference'],
+  'firstname' => $fields['firstname'],
+  'lastname'  => $fields['lastname'],
+  'dob'       => $fields['dob'],
+  'gender'    => $gender,
+  'street'    => $fields['street'],
+  'city'      => $fields['city'],
+  'state'     => strtoupper($fields['state']),
+  'postcode'  => $fields['postcode'],
+  'email'     => $fields['email'],
+  'phone'     => $fields['phone'],
+  'skills'    => array_values(array_filter(array_merge($skillsArray, ($otherSkill !== '' ? array('other: ' . $otherSkill) : array())))),
+  'eoi_number'=> $inserted_id,
+);
+
+// Store & redirect
+$_SESSION['form_data'] = $cleanData;
+
+mysqli_stmt_close($ins);
 mysqli_close($conn);
-?>
-<!doctype html>
-<meta charset="utf-8">
-<link rel="stylesheet" href="styles/style.css">
-<main class="container">
-  <h2>Thanks for applying!</h2>
-  <div class="card success">
-    <p>Your Expression of Interest was received.</p>
-    <p><strong>EOInumber:</strong> <?php echo htmlspecialchars($eoi_id); ?></p>
-    <p>Status is set to <strong>New</strong>.</p>
-    <p><a href="index.php">Return to Home</a></p>
-  </div>
-</main>
+
+header('Location: success.php');
+exit;

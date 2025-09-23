@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <?php include 'header.inc'; ?>
+  <?php include 'components/header.inc'; ?>
     <main>
     <section>
       <h2 class="text-center">Welcome to Dunder Mifflin I.T.</h2>
@@ -54,6 +54,6 @@
       </p>
     </section>
   </main>
-  <?php include 'footer.inc'; ?>
+  <?php include 'components/footer.inc'; ?>
 </body>
 </html>

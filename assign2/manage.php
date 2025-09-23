@@ -1,183 +1,141 @@
 <?php
-// manage.php — HR manager queries
 require_once 'settings.php';
 
-$conn = db_connect_or_exit();
+// Connect
+$conn = @mysqli_connect($host, $user, $pwd, $sql_db);
+if (!$conn) {
+    die('Database connection failed.');
+}
 
-// helper to escape HTML
-function e($s){ return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
+// Clean input
+function clean($data, $conn) {
+    return mysqli_real_escape_string($conn, trim($data));
+}
 
-// Ensure table exists (optional safety)
-mysqli_query($conn, "CREATE TABLE IF NOT EXISTS eoi (
-  EOInumber INT AUTO_INCREMENT PRIMARY KEY,
-  job_ref CHAR(5) NOT NULL,
-  first_name VARCHAR(20) NOT NULL,
-  last_name  VARCHAR(20) NOT NULL,
-  dob        DATE NOT NULL,
-  gender     VARCHAR(20) NOT NULL,
-  street     VARCHAR(40) NOT NULL,
-  suburb     VARCHAR(40) NOT NULL,
-  state      CHAR(3) NOT NULL,
-  postcode   CHAR(4) NOT NULL,
-  email      VARCHAR(128) NOT NULL,
-  phone      VARCHAR(16) NOT NULL,
-  skill1     VARCHAR(32) NULL,
-  skill2     VARCHAR(32) NULL,
-  skill3     VARCHAR(32) NULL,
-  skill4     VARCHAR(32) NULL,
-  other_skills TEXT NULL,
-  status     ENUM('New','Current','Final') NOT NULL DEFAULT 'New',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-
-$feedback = "";
-$results  = [];
-
-// Actions
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $action = $_POST['action'] ?? "";
-  if ($action === 'list_all') {
-    $res = mysqli_query($conn, "SELECT * FROM eoi ORDER BY EOInumber DESC");
-    $results = $res ? $res : [];
-  }
-  if ($action === 'list_by_ref') {
-    $ref = strtoupper(trim($_POST['ref'] ?? ""));
-    $stmt = mysqli_prepare($conn, "SELECT * FROM eoi WHERE job_ref=? ORDER BY EOInumber DESC");
-    mysqli_stmt_bind_param($stmt, "s", $ref);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $results = $res ? $res : [];
-  }
-  if ($action === 'list_by_name') {
-    $first = trim($_POST['first'] ?? "");
-    $last  = trim($_POST['last'] ?? "");
-    if ($first !== "" && $last !== "") {
-      $stmt = mysqli_prepare($conn, "SELECT * FROM eoi WHERE first_name=? AND last_name=? ORDER BY EOInumber DESC");
-      mysqli_stmt_bind_param($stmt, "ss", $first, $last);
-    } elseif ($first !== "") {
-      $stmt = mysqli_prepare($conn, "SELECT * FROM eoi WHERE first_name=? ORDER BY EOInumber DESC");
-      mysqli_stmt_bind_param($stmt, "s", $first);
-    } else {
-      $stmt = mysqli_prepare($conn, "SELECT * FROM eoi WHERE last_name=? ORDER BY EOInumber DESC");
-      mysqli_stmt_bind_param($stmt, "s", $last);
+// Show table
+function showTable($result) {
+    echo "<table border='1' cellpadding='5' cellspacing='0'>";
+    echo '<tr>';
+    foreach (mysqli_fetch_fields($result) as $f) {
+        echo "<th>{$f->name}</th>";
     }
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $results = $res ? $res : [];
-  }
-  if ($action === 'delete_by_ref') {
-    $ref = strtoupper(trim($_POST['ref_del'] ?? ""));
-    $stmt = mysqli_prepare($conn, "DELETE FROM eoi WHERE job_ref=?");
-    mysqli_stmt_bind_param($stmt, "s", $ref);
-    mysqli_stmt_execute($stmt);
-    $affected = mysqli_stmt_affected_rows($stmt);
-    $feedback = $affected . " record(s) deleted for Job Ref " . e($ref) . ".";
-  }
-  if ($action === 'update_status') {
-    $eoi = intval($_POST['eoi_id'] ?? 0);
-    $status = $_POST['new_status'] ?? 'New';
-    if (!in_array($status, ['New','Current','Final'], true)) $status = 'New';
-    $stmt = mysqli_prepare($conn, "UPDATE eoi SET status=? WHERE EOInumber=?");
-    mysqli_stmt_bind_param($stmt, "si", $status, $eoi);
-    mysqli_stmt_execute($stmt);
-    $feedback = "EOInumber " . e($eoi) . " updated to status " . e($status) . ".";
-  }
+    echo '</tr>';
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo '<tr>';
+        foreach ($row as $val) {
+            echo '<td>' . htmlspecialchars($val) . '</td>';
+        }
+        echo '</tr>';
+    }
+
+    echo '</table>';
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Manage EOIs</title>
-  <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <title>Manage EOIs</title>
 </head>
 <body>
-  <?php include 'header.inc'; ?>
-  <?php include 'menu.inc'; ?>
-  <main class="container">
-    <h2>HR Manager – EOI Console</h2>
+    <h1>HR Manager – Manage EOIs</h1>
 
-    <?php if ($feedback): ?>
-      <div class="card info"><p><?php echo $feedback; ?></p></div>
-    <?php endif; ?>
+    <!-- Forms -->
+    <form method="post">
+        <fieldset>
+            <legend>List All EOIs</legend>
+            <button type="submit" name="list_all">Show All</button>
+        </fieldset>
+    </form>
 
-    <section class="grid-2">
-      <form method="post" class="card">
-        <h3>List all EOIs</h3>
-        <input type="hidden" name="action" value="list_all">
-        <button type="submit">List All</button>
-      </form>
+    <form method="post">
+        <fieldset>
+            <legend>Search by Job Reference</legend>
+            <input type="text" name="jobref" placeholder="e.g. IT001">
+            <button type="submit" name="list_by_job">Search</button>
+        </fieldset>
+    </form>
 
-      <form method="post" class="card">
-        <h3>List by Job Ref</h3>
-        <label>Ref <input type="text" name="ref" maxlength="5" required></label>
-        <input type="hidden" name="action" value="list_by_ref">
-        <button type="submit">List</button>
-      </form>
+    <form method="post">
+        <fieldset>
+            <legend>Search by Applicant</legend>
+            <input type="text" name="fname" placeholder="First Name">
+            <input type="text" name="lname" placeholder="Last Name">
+            <button type="submit" name="list_by_applicant">Search</button>
+        </fieldset>
+    </form>
 
-      <form method="post" class="card">
-        <h3>List by Applicant</h3>
-        <label>First <input type="text" name="first"></label>
-        <label>Last <input type="text" name="last"></label>
-        <input type="hidden" name="action" value="list_by_name">
-        <button type="submit">List</button>
-      </form>
+    <form method="post">
+        <fieldset>
+            <legend>Delete by Job Reference</legend>
+            <input type="text" name="del_jobref" placeholder="e.g. IT001">
+            <button type="submit" name="delete_job">Delete</button>
+        </fieldset>
+    </form>
 
-      <form method="post" class="card danger">
-        <h3>Delete by Job Ref</h3>
-        <label>Ref <input type="text" name="ref_del" maxlength="5" required></label>
-        <input type="hidden" name="action" value="delete_by_ref">
-        <button type="submit" onclick="return confirm('Delete ALL EOIs for this job ref?');">Delete</button>
-      </form>
+    <form method="post">
+        <fieldset>
+            <legend>Update EOI Status</legend>
+            <input type="number" name="eoi_number" placeholder="EOI Number">
+            <select name="status">
+                <option value="New">New</option>
+                <option value="Current">Current</option>
+                <option value="Final">Final</option>
+            </select>
+            <button type="submit" name="update_status">Update</button>
+        </fieldset>
+    </form>
 
-      <form method="post" class="card">
-        <h3>Change Status</h3>
-        <label>EOInumber <input type="number" name="eoi_id" required></label>
-        <label>Status
-          <select name="new_status">
-            <option>New</option>
-            <option>Current</option>
-            <option>Final</option>
-          </select>
-        </label>
-        <input type="hidden" name="action" value="update_status">
-        <button type="submit">Update</button>
-      </form>
-    </section>
+    <hr>
 
-    <?php if ($results instanceof mysqli_result): ?>
-      <section class="card">
-        <h3>Results (<?php echo $results->num_rows; ?>)</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>EOI#</th><th>JobRef</th><th>Name</th><th>DOB</th><th>Gender</th>
-                <th>Address</th><th>Contact</th><th>Skills</th><th>Status</th><th>Created</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php while ($row = $results->fetch_assoc()): ?>
-              <tr>
-                <td><?php echo e($row['EOInumber']); ?></td>
-                <td><?php echo e($row['job_ref']); ?></td>
-                <td><?php echo e($row['first_name'] . ' ' . $row['last_name']); ?></td>
-                <td><?php echo e($row['dob']); ?></td>
-                <td><?php echo e($row['gender']); ?></td>
-                <td><?php echo e($row['street'] . ', ' . $row['suburb'] . ' ' . $row['state'] . ' ' . $row['postcode']); ?></td>
-                <td><?php echo e($row['email'] . ' / ' . $row['phone']); ?></td>
-                <td><?php echo e(implode(', ', array_filter([$row['skill1'],$row['skill2'],$row['skill3'],$row['skill4'], $row['other_skills']]))); ?></td>
-                <td><?php echo e($row['status']); ?></td>
-                <td><?php echo e($row['created_at']); ?></td>
-              </tr>
-              <?php endwhile; ?>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    <?php endif; ?>
+    <!-- Actions / Results -->
+    <?php
+    if (isset($_POST['list_all'])) {
+        $res = mysqli_query($conn, 'SELECT * FROM eoi');
+        echo ($res && mysqli_num_rows($res) > 0) ? showTable($res) : 'No EOIs found.';
+    }
 
-  </main>
-  <?php include 'footer.inc'; ?>
+    if (isset($_POST['list_by_job'])) {
+        $job = clean($_POST['jobref'], $conn);
+        $res = mysqli_query($conn, "SELECT * FROM eoi WHERE JobRefNo='$job'");
+        echo ($res && mysqli_num_rows($res) > 0) ? showTable($res) : "No EOIs for $job.";
+    }
+
+    if (isset($_POST['list_by_applicant'])) {
+        $conds = array();
+        if (!empty($_POST['fname'])) {
+            $conds[] = "FirstName='" . clean($_POST['fname'], $conn) . "'";
+        }
+        if (!empty($_POST['lname'])) {
+            $conds[] = "LastName='" . clean($_POST['lname'], $conn) . "'";
+        }
+
+        if ($conds) {
+            $sql = 'SELECT * FROM eoi WHERE ' . implode(' AND ', $conds);
+            $res = mysqli_query($conn, $sql);
+            echo ($res && mysqli_num_rows($res) > 0) ? showTable($res) : 'No EOIs found.';
+        } else {
+            echo 'Enter first and/or last name.';
+        }
+    }
+
+    if (isset($_POST['delete_job'])) {
+        $job  = clean($_POST['del_jobref'], $conn);
+        $done = mysqli_query($conn, "DELETE FROM eoi WHERE JobRefNo='$job'");
+        echo $done ? "Deleted EOIs for $job." : 'Nothing deleted.';
+    }
+
+    if (isset($_POST['update_status'])) {
+        $eoi    = (int)$_POST['eoi_number'];
+        $status = clean($_POST['status'], $conn);
+        $done   = mysqli_query($conn, "UPDATE eoi SET Status='$status' WHERE EOInumber=$eoi");
+        echo ($done && mysqli_affected_rows($conn) > 0)
+            ? "EOI #$eoi updated to $status."
+            : 'Update failed.';
+    }
+
+    mysqli_close($conn);
+    ?>
 </body>
 </html>

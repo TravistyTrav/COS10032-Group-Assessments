@@ -11,7 +11,7 @@
     <link rel="stylesheet"       href="styles/style.css">
 </head>
 <body>
-    <?php include 'header.inc'; ?>
+    <?php include 'components/header.inc'; ?>
     <main>
     <section>
       <h2 class="text-center">Error</h2>
@@ -21,6 +21,6 @@
       <br>
     </section>
     </main>
-    <?php include 'footer.inc'; ?>
+    <?php include 'components/footer.inc'; ?>
 </body>
 </html>
