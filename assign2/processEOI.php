@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST)) {
 $conn = db_connect_or_exit();
 
 // Create table if not exists
+// must create status enum in sqlitestudio - query is in mysql syntax
 $create = "CREATE TABLE IF NOT EXISTS EOI (
   EOInumber INT AUTO_INCREMENT PRIMARY KEY,
   job_ref CHAR(5) NOT NULL,
@@ -97,11 +98,11 @@ $dob = sprintf("%04d-%02d-%02d", intval($y), intval($m), intval($d));
 
 // Insert (prepared)
 $stmt = mysqli_prepare($conn, "INSERT INTO eoi
-(job_ref, first_name, last_name, dob, gender, street, city, state, postcode, email, ph_number, skills, other_skills)
+(job_ref, first_name, last_name, dob, gender, street, city, state, postcode, email, ph_number, skills, other_skills, status)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'New')");
 mysqli_stmt_bind_param($stmt, "ssssssssssssssss",
   $job_ref, $first_name, $last_name, $dob, $gender, $street, $city, $state, $postcode, $email, $ph_number,
-  $skills, $other_skills
+  $skills, $other_skills, status
 );
 $ok = mysqli_stmt_execute($stmt);
 
